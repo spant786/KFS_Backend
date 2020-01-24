@@ -10,5 +10,17 @@ router.post("/upload",(req,res)=>{
    myData.save();
 });
 
+//code for get
+router.get('/user',function(req,res){ //without auth 
+   // router.get('/user',auth,function(req,res){
+    User.find().then(function(user_data){
+        res.send(user_data);
 
+    
+}).catch(function(e){
+    
+            res.send(e)
+        
+    });
+})
 module.exports = router
