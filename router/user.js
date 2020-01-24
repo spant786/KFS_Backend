@@ -10,7 +10,7 @@ router.post("/upload",(req,res)=>{
    myData.save();
 });
 
-//get ko lagi code
+//code for get
 router.get('/user',function(req,res){ //without auth 
    // router.get('/user',auth,function(req,res){
     User.find().then(function(user_data){
@@ -23,7 +23,6 @@ router.get('/user',function(req,res){ //without auth
         
     });
 })
-//yaha sama  get ko code 
 // this is for the admin
 router.get('/admin_dashboard',auth,function(req,res){
     user_type = req.user_type
@@ -53,7 +52,7 @@ router.get('/user_dashboard',auth,function(req,res){
     })
 
 
-//yaha bata taltira delete ko 
+//benith code is for delete user 
 router.delete('/del/:id',function(req,res){
     User.findByIdAndDelete(req.params.id).then(function(){
 
@@ -63,7 +62,7 @@ router.delete('/del/:id',function(req,res){
 
     
 });
-
+//code is for update
 router.put('/update/:id',function(req,res){
     User.findOneAndUpdate({_id :req.params.id},req.body).then(function(){
         res.send("updated")
