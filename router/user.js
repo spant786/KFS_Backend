@@ -11,8 +11,8 @@ router.post("/upload",(req,res)=>{
 });
 
 //code for get
-router.get('/user',function(req,res){ //without auth 
-   // router.get('/user',auth,function(req,res){
+//router.get('/user',function(req,res){ //without auth 
+    router.get('/user',auth,function(req,res){
     User.find().then(function(user_data){
         res.send(user_data);
 
