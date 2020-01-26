@@ -23,4 +23,56 @@ router.get('/user',function(req,res){ //without auth
         
     });
 })
+// this is for the admin
+router.get('/admin_dashboard',auth,function(req,res){
+    user_type = req.user_type
+    if(user_type=="admin"){
+        res.send("hello admin")
+    }
+    else{
+    res.status(401).send({ error: 'Please authenticate.' })
+    }
+    
+    })
+    // this is for the user
+router.get('/user_dashboard',auth,function(req,res){
+    user_type = req.user_type
+    if(user_type=="user"){
+        res.send("hello user")
+    }
+    else{
+    res.status(401).send({ error: 'Please authenticate.' })
+    }
+    
+    })
+
+    router.get("/admin_dashboard" , auth, function(){
+
+
+    })
+
+
+//benith code is for delete user 
+router.delete('/del/:id',function(req,res){
+    User.findByIdAndDelete(req.params.id).then(function(){
+
+    }).catch(function(){
+        res.send(e)
+    })
+
+    
+});
+//code is for update
+router.put('/update/:id',function(req,res){
+    User.findOneAndUpdate({_id :req.params.id},req.body).then(function(){
+        res.send("updated")
+    }).catch(function(e){
+        res.send(e)
+  
+       
+    })
+
+})
+
+
 module.exports = router
