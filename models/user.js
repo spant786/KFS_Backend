@@ -30,6 +30,21 @@ const userSchema =new  mongoose.Schema({
         }]
        
 })
+userSchema.statics.checkCrediantialsDb = async (name, password) =>{
+
+    const user1 = await user.findOne({name : name, password: password})
+     return user1;
+    }
+    userSchema.methods.generateAuthToken = async function () {
+        const user = this
+       const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse')
+       
+       console.log(token);
+        user.tokens = user.tokens.concat({ token :token })
+        await user.save()
+        return token
+       }
+const user = mongoose.model('user', userSchema)
 
 
-    module.exports = user
+    module.exports = user 
