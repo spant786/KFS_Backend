@@ -72,6 +72,7 @@ router.put('/update/:id',function(req,res){
        
     })
 })
+//login method
 router.post("/login22", async function(req,res){
     const user = await User.checkCrediantialsDb(req.body.name , req.body.password)        
     const token = await  user.generateAuthToken()  
