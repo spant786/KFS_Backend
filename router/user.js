@@ -73,11 +73,26 @@ router.put('/update/:id',function(req,res){
     })
 })
 //login method
-router.post("/login22", async function(req,res){
-    const user = await User.checkCrediantialsDb(req.body.name , req.body.password)        
+router.post("/login", async function(req,res){
+    const user = await User.checkCrediantialsDb(req.body.email , req.body.password)        
     const token = await  user.generateAuthToken()  
         console.log("logged in");
 
+})
+
+
+//for single user
+router.get('/user/single/:id',function(req,res){ //without auth (middleware)
+    // router.get('/user',auth,function(req,res){
+     User.findOne({_id : req.params.id}).then(function(user_data){
+         res.send(user_data);
+ 
+     
+ }).catch(function(e){
+     
+             res.send(e)
+ 
+});
 })
 
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const userSchema =new  mongoose.Schema({
     // User means the model for login and register
-    name: {
+    fullname: {
         type: String
     },
     email:{
@@ -30,9 +30,9 @@ const userSchema =new  mongoose.Schema({
         }]
        
 })
-userSchema.statics.checkCrediantialsDb = async (name, password) =>{
+userSchema.statics.checkCrediantialsDb = async (email, password) =>{
 
-    const user1 = await user.findOne({name : name, password: password})
+    const user1 = await user.findOne({email : email, password: password})
      return user1;
     }
     userSchema.methods.generateAuthToken = async function () {

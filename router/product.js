@@ -36,7 +36,7 @@ router.post("/product",upload.single('Image'),(req,res)=>{
    var myData = new Product(req.body);
    myData.save();
 });
-//get ko lagi code
+
 router.get('/getProduct',function(req,res){
     Product.find().then(function(user_data){
         res.send(user_data);
@@ -48,10 +48,7 @@ router.get('/getProduct',function(req,res){
         
     });
 })
-//yaha sama  get ko code 
 
-
-//yaha bata taltira delete ko 
 router.delete('/delProduct/:id',function(req,res){
     Product.findByIdAndDelete(req.params.id).then(function(){
 
