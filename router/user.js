@@ -73,13 +73,30 @@ router.put('/update/:id',function(req,res){
     })
 })
 //login method
-router.post("/login", async function(req,res){
-    const user = await User.checkCrediantialsDb(req.body.email , req.body.password)        
-    const token = await  user.generateAuthToken()  
-        console.log("logged in");
+router.post("/login", async function (req, res) {
+    try {
+        const user = await User.checkCrediantialsDb(req.body.email, req.body.password)
+        const token =await user.generateAuthToken();
+        if(user !=null){
+                res.json({
+                    message: "login success",
+                    status: "true",
+                    user_type:user.user_type,
+                    newtoken:token
+                })
+            
+        }else{            
+            res.json({
+                message: "not login success",
+                status: "false"
+            })
+        }
+       
+    } catch (error) {
+        res.json(error)
+    }
 
 })
-
 
 //for single user
 router.get('/user/single/:id',function(req,res){ //without auth (middleware)
