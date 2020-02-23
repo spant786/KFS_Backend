@@ -81,8 +81,11 @@ router.post("/login", async function (req, res) {
                 res.json({
                     message: "login success",
                     status: "true",
+                    email: user.email,
+                    fullname: user.fullname,
                     user_type:user.user_type,
-                    newtoken:token
+                    newtoken:token,
+                    _id:user._id
                 })
             
         }else{            
@@ -110,6 +113,19 @@ router.get('/user/single/:id',function(req,res){ //without auth (middleware)
              res.send(e)
  
 });
+})
+//for logout
+router.post('/user/logout',auth,async(req,res)=>{
+    try{
+        req.user.tokens =req.user.tokens.filter((token)=>{
+        return token.token !== req.tokens
+    })
+    await req.user.save()
+    res.send()
+}catch(e){
+    res.send(500).send
+}
+    
 })
 
 

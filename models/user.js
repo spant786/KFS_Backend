@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken') 
 const userSchema =new  mongoose.Schema({
     // User means the model for login and register
     fullname: {

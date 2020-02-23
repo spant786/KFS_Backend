@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const product = mongoose.model('Product',{
-    // User vhaneko model banako. 
+
         product_name: {
             type: String
         },

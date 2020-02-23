@@ -1,20 +1,24 @@
 const express = require('express')
 const Product = require('../models/product')
 const router = new express.Router()
-
+const path = require('path');
 const multer = require('multer');
+const app = express();
+
+
+//app.use(express.static(path.join(__dirname , "images")))
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './uploads/');
-  },
+  destination:"images",
   filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    const ext = path.extname(file.originalname)
+    cb(null, Date.now() + "hello" + ext);
+  
   }
 });
-//
+
+
 const fileFilter = (req, file, cb) => {
-  // reject a file
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
   } else {
@@ -47,7 +51,23 @@ router.get('/getProduct',function(req,res){
             res.send(e)
         
     });
+
+    
 })
+router.get('/viewproduct',function(req,res){
+  Product.findById(req.body.productid).then(function(user_data){
+      res.send(user_data);
+
+  
+}).catch(function(e){
+  
+          res.send(e)
+      
+  });
+
+  
+})
+
 
 router.delete('/delProduct/:id',function(req,res){
     Product.findByIdAndDelete(req.params.id).then(function(){
